@@ -39,6 +39,9 @@ build/Release
 
 # Dependency directories
 node_modules/
+apps/server/.astro/
+apps/server/data/
+apps/server/console.config.yaml
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)

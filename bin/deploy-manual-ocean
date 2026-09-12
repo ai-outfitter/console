@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Repoint the existing a2astro acceptance harness at this console repository.
+# It reuses the harness's mounted config/routes Secrets and its NetworkPolicies;
+# it does not create or reconcile Agent resources.
+set -euo pipefail
+
+CONTEXT="${CONTEXT:-default}"
+NAMESPACE="${NAMESPACE:-a2astro}"
+DEPLOYMENT="${DEPLOYMENT:-a2astro}"
+REVISION="${REVISION:-main}"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+kubectl --context "$CONTEXT" -n "$NAMESPACE" get deployment "$DEPLOYMENT" >/dev/null
+kubectl --context "$CONTEXT" -n "$NAMESPACE" get secret a2astro-config >/dev/null
+kubectl --context "$CONTEXT" -n "$NAMESPACE" get secret a2astro-routes >/dev/null
+
+kubectl --context "$CONTEXT" patch deployment "$DEPLOYMENT" --type=strategic \
+  --patch-file "$ROOT/deploy/manual-source-build-patch.yaml"
+kubectl --context "$CONTEXT" -n "$NAMESPACE" set env deployment/"$DEPLOYMENT" \
+  --containers=build REVISION="$REVISION"
+kubectl --context "$CONTEXT" -n "$NAMESPACE" rollout status deployment/"$DEPLOYMENT" --timeout=10m
+
+echo "Console source $REVISION is ready in $NAMESPACE/$DEPLOYMENT."
+echo "Open it locally with:"
+echo "  kubectl --context $CONTEXT -n $NAMESPACE port-forward service/a2astro 4322:80"

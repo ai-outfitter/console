@@ -1,0 +1,36 @@
+# Hand-test patch for the existing Ocean a2astro acceptance harness.
+# This does not create or modify Agent resources and is not reconciled by agent-operator.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a2astro
+  namespace: a2astro
+spec:
+  template:
+    metadata:
+      annotations:
+        console.ai-outfitter.dev/source: https://github.com/ai-outfitter/console
+    spec:
+      initContainers:
+        - name: build
+          env:
+            - name: REPOSITORY
+              value: https://github.com/ai-outfitter/console.git
+            - name: REVISION
+              value: main
+          args:
+            - |
+              export HOME=/app
+              git config --global --add safe.directory /app
+              git init -q .
+              git remote add origin "$REPOSITORY"
+              git fetch -q --depth 1 origin "$REVISION"
+              git checkout -q FETCH_HEAD
+              npm ci --no-audit --no-fund
+              npm run build
+              echo "built $REPOSITORY@$REVISION"
+      containers:
+        - name: a2astro
+          args:
+            - |
+              exec node ./apps/server/dist/server/entry.mjs
