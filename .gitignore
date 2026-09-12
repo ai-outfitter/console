@@ -40,6 +40,7 @@ build/Release
 # Dependency directories
 node_modules/
 apps/server/.astro/
+packages/ui/.astro/
 apps/server/data/
 apps/server/console.config.yaml
 jspm_packages/
