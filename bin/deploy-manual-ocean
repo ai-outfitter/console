@@ -14,7 +14,7 @@ kubectl --context "$CONTEXT" -n "$NAMESPACE" get deployment "$DEPLOYMENT" >/dev/
 kubectl --context "$CONTEXT" -n "$NAMESPACE" get secret a2astro-config >/dev/null
 kubectl --context "$CONTEXT" -n "$NAMESPACE" get secret a2astro-routes >/dev/null
 
-kubectl --context "$CONTEXT" patch deployment "$DEPLOYMENT" --type=strategic \
+kubectl --context "$CONTEXT" -n "$NAMESPACE" patch deployment "$DEPLOYMENT" --type=strategic \
   --patch-file "$ROOT/deploy/manual-source-build-patch.yaml"
 kubectl --context "$CONTEXT" -n "$NAMESPACE" set env deployment/"$DEPLOYMENT" \
   --containers=build REVISION="$REVISION"
