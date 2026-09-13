@@ -1,0 +1,20 @@
+{
+  "name": "@ai-outfitter/console-root",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Workspace for the AI Outfitter resident-agent console and its reusable Astro UI.",
+  "workspaces": ["apps/server", "packages/ui"],
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "build": "npm run build --workspace @ai-outfitter/console-server",
+    "check": "npm run check --workspace @ai-outfitter/console-ui && npm run check --workspace @ai-outfitter/console-server",
+    "dev": "npm run dev --workspace @ai-outfitter/console-server",
+    "mock": "npm run mock --workspace @ai-outfitter/console-server",
+    "start": "npm run start --workspace @ai-outfitter/console-server",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

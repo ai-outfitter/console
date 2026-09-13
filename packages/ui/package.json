@@ -1,0 +1,35 @@
+{
+  "name": "@ai-outfitter/console-ui",
+  "version": "0.1.0",
+  "description": "Reusable Astro components and browser-safe view models for AI Outfitter agent consoles.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ai-outfitter/console.git",
+    "directory": "packages/ui"
+  },
+  "files": ["src"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./ElicitationForm.astro": "./src/components/ElicitationForm.astro",
+    "./StateBadge.astro": "./src/components/StateBadge.astro",
+    "./TaskOutputs.astro": "./src/components/TaskOutputs.astro",
+    "./TaskRow.astro": "./src/components/TaskRow.astro",
+    "./WorkflowGraph.astro": "./src/components/WorkflowGraph.astro",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "check": "astro check",
+    "test": "vitest run"
+  },
+  "peerDependencies": { "astro": ">=7.2.0 <8" },
+  "publishConfig": { "access": "public" },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "astro": "^7.3.1",
+    "typescript": "^5.9.2",
+    "vitest": "^5.0.0"
+  },
+  "engines": { "node": ">=22.12.0" }
+}

@@ -1,0 +1,33 @@
+:root {
+  --bg: #f7f7f5;
+  --panel: #ffffff;
+  --ink: #1c1c1a;
+  --muted: #6b6b66;
+  --line: #e3e3de;
+  --accent: #2f6df6;
+  --idle: #9a9a94;
+  --active: #2f6df6;
+  --ok: #1f9d55;
+  --bad: #d23b3b;
+  --wait: #d98b12;
+  --skip: #c7c7c2;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141413;
+    --panel: #1e1e1c;
+    --ink: #ececea;
+    --muted: #a2a29c;
+    --line: #2e2e2b;
+    --skip: #3a3a37;
+  }
+}
+
+.console-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+}
